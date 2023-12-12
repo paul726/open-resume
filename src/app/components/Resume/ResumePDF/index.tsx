@@ -10,7 +10,6 @@ import { DEFAULT_FONT_COLOR } from "lib/redux/settingsSlice";
 import type { Settings, ShowForm } from "lib/redux/settingsSlice";
 import type { Resume } from "lib/redux/types";
 import { SuppressResumePDFErrorMessage } from "components/Resume/ResumePDF/common/SuppressResumePDFErrorMessage";
-import { toBeVisible } from "@testing-library/jest-dom/matchers";
 
 /**
  * Note: ResumePDF is supposed to be rendered inside PDFViewer. However,
@@ -94,10 +93,9 @@ export const ResumePDF = ({
   };
 
   return (
-    <div className="overflow">
+    <>
       <Document title={`${name} Resume`} author={name} producer={"ResumePilot"}>
         <Page
-          wrap={false}
           size={documentSize === "A4" ? "A4" : "LETTER"}
           style={{
             ...styles.flexCol,
@@ -131,9 +129,15 @@ export const ResumePDF = ({
               return <Component key={form} />;
             })}
           </View>
+          <View
+              style={{
+                width: spacing["full"],
+                height: spacing[3.5],
+              }}
+            />
         </Page>
       </Document>
       <SuppressResumePDFErrorMessage />
-    </div>
+    </>
   );
 };

@@ -40,7 +40,7 @@ export const AIBoostButton = () => {
 
     }
     return (
-        <PrimaryButton className={isResumeBuilderPage ? '' : 'hidden'} onClick={AiBoostResume}>
+        <PrimaryButton className={isResumeBuilderPage ? '' : 'hidden'} href="../resume-optimize">
             AI-Boost Your Resume
         </PrimaryButton>
     )

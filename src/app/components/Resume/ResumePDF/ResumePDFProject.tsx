@@ -17,7 +17,7 @@ export const ResumePDFProject = ({
   themeColor: string;
 }) => {
   return (
-    <ResumePDFSection themeColor={themeColor} heading={heading} wrap={false}>
+    <ResumePDFSection themeColor={themeColor} heading={heading}>
       {projects.map(({ project, date, descriptions }, idx) => (
         <View key={idx}>
           <View
