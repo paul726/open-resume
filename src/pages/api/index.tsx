@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
-import OpenAI from "openai";
 
-const openai = new OpenAI();
 const gptapiUrl = "https://api.gptapi.us/v1/chat/completions"
 const apiKey = "sk-mKFNmC4SFOHIK6iLAdA4Fc1cF66c490d9758B109Cc41B979"
 
@@ -12,12 +10,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const prompt = await req.body;
+    const bodyData = await req.body;
     const result = await axios.post(gptapiUrl, {
       model: "gpt-4",
       messages: [
         { role: "system", content: "Here is a resume in JSON format. Please analyze the content and optimize it for its role, focusing on clarity, impact, and relevance. Enhance the descriptions, highlight key achievements, and ensure the skills and experiences align with typical requirements for a software engineering position. Please maintain the JSON structure in your response." }, 
-        { role: "user", content: prompt['message'] }],
+        { role: "user", content: bodyData['resume'] },
+        { role: "user", content: bodyData['jd']}
+      ],
+        
     }, {
       headers: {
         'Authorization': `Bearer ${apiKey}`,
