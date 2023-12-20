@@ -13,7 +13,7 @@ export default function Create() {
             <ResumeForm />
           </div>
           <div className="col-span-3">
-            <Resume />
+            <Resume needScroll={true}/>
           </div>
         </div>
       </main>

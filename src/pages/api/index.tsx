@@ -4,30 +4,31 @@ import { NextApiRequest, NextApiResponse } from 'next';
 const gptapiUrl = "https://api.gptapi.us/v1/chat/completions"
 const apiKey = "sk-mKFNmC4SFOHIK6iLAdA4Fc1cF66c490d9758B109Cc41B979"
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
   try {
-    const bodyData = await req.body;
-    const result = await axios.post(gptapiUrl, {
-      model: "gpt-4",
-      messages: [
-        { role: "system", content: "Here is a resume in JSON format. Please analyze the content and optimize it for its role, focusing on clarity, impact, and relevance. Enhance the descriptions, highlight key achievements, and ensure the skills and experiences align with typical requirements for a software engineering position. Please maintain the JSON structure in your response." }, 
-        { role: "user", content: bodyData['resume'] },
-        { role: "user", content: bodyData['jd']}
-      ],
+    //const bodyData = req.body;
+    // const result = await axios.post(gptapiUrl, {
+    //   model: "gpt-4",
+    //   messages: [
+    //     { role: "system", content: "Here is a resume in JSON format. Please analyze the content and optimize it for its role, focusing on clarity, impact, and relevance. Enhance the descriptions, highlight key achievements, and ensure the skills and experiences align with typical requirements for a software engineering position. Please maintain the JSON structure in your response." }, 
+    //     { role: "user", content: bodyData['resume'] },
+    //     { role: "user", content: bodyData['jd']}
+    //   ],
         
-    }, {
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-    })
-    res.status(200).json(result.data.choices[0].message.content)
-    console.log(result.data.choices[0].message.content);
+    // }, {
+    //   headers: {
+    //     'Authorization': `Bearer ${apiKey}`,
+    //     'Content-Type': 'application/json',
+    //   },
+    // })
+    // res.status(200).json(result.data.choices[0].message.content)
+    // console.log(result.data.choices[0].message.content);
 
+    res.status(200).send({message: "hello,world"})
     // const completion = await openai.chat.completions.create({
     //   messages: [bfgn v
     //     {

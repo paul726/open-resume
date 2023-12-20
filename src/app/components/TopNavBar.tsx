@@ -34,18 +34,10 @@ export const TopNavBar = () => {
           >
             <AIBoostButton />
             <Link href="../premium" className="rounded-md px-2 py-2 text-blue-600 hover:bg-gray-100 focus-visible:bg-gray-100">Premium</Link>
-            {[
-              ["/resume-builder", "Builder"],
-              ["/resume-parser", "Parser"],
-            ].map(([href, text]) => (
-              <Link
-                key={text}
-                className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
-                href={href}
-              >
-                {text}
-              </Link>
-            ))}
+
+            <Link href={"/resume-builder"} className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4" key={"Builder"}>Builder</Link>
+
+            <Link href="../login" className="rounded-md px-4 py-2 bg-blue-600 text-white hover:bg-blue-900 focus-visible:bg-blue-900">Login</Link>
           </nav>
         </div>
       </header>

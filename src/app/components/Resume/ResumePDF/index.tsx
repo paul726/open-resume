@@ -10,6 +10,12 @@ import { DEFAULT_FONT_COLOR } from "lib/redux/settingsSlice";
 import type { Settings, ShowForm } from "lib/redux/settingsSlice";
 import type { Resume } from "lib/redux/types";
 import { SuppressResumePDFErrorMessage } from "components/Resume/ResumePDF/common/SuppressResumePDFErrorMessage";
+import {
+  A4_HEIGHT_PX,
+  A4_WIDTH_PX,
+  LETTER_HEIGHT_PX,
+  LETTER_WIDTH_PX,
+} from "lib/constants";
 
 /**
  * Note: ResumePDF is supposed to be rendered inside PDFViewer. However,
@@ -30,10 +36,12 @@ export const ResumePDF = ({
   resume,
   settings,
   isPDF = false,
+  needScroll = false,
 }: {
   resume: Resume;
   settings: Settings;
   isPDF?: boolean;
+  needScroll: boolean;
 }) => {
   const { profile, workExperiences, educations, projects, skills, custom } =
     resume;
@@ -92,52 +100,76 @@ export const ResumePDF = ({
     ),
   };
 
+  const PageContent = () => {
+    return (
+      <Page
+        wrap={false}
+        size={documentSize === "A4" ? "A4" : "LETTER"}
+        style={{
+          ...styles.flexCol,
+          color: DEFAULT_FONT_COLOR,
+          fontFamily,
+          fontSize: fontSize + "pt",
+        }}
+      >
+        {Boolean(settings.themeColor) && (
+          <View
+            style={{
+              width: spacing["full"],
+              height: spacing[3.5],
+              backgroundColor: themeColor,
+            }}
+          />
+        )}
+        <View
+          style={{
+            ...styles.flexCol,
+            padding: `${spacing[0]} ${spacing[20]}`,
+          }}
+        >
+          <ResumePDFProfile
+            profile={profile}
+            themeColor={themeColor}
+            isPDF={isPDF}
+          />
+          {showFormsOrder.map((form) => {
+            const Component = formTypeToComponent[form];
+            return <Component key={form} />;
+          })}
+        </View>
+        <View
+          style={{
+            width: spacing["full"],
+            height: spacing[3.5],
+            paddingBottom: 100
+          }}
+        />
+      </Page>
+    )
+  }
+
+  const isA4 = documentSize === "A4";
+  const width = isA4 ? A4_WIDTH_PX : LETTER_WIDTH_PX;
+  const height = isA4 ? A4_HEIGHT_PX : LETTER_HEIGHT_PX;
+
   return (
     <>
       <Document title={`${name} Resume`} author={name} producer={"ResumePilot"}>
-        <Page
-          size={documentSize === "A4" ? "A4" : "LETTER"}
-          style={{
-            ...styles.flexCol,
-            color: DEFAULT_FONT_COLOR,
-            fontFamily,
-            fontSize: fontSize + "pt",
-          }}
-        >
-          {Boolean(settings.themeColor) && (
-            <View
-              style={{
-                width: spacing["full"],
-                height: spacing[3.5],
-                backgroundColor: themeColor,
-              }}
-            />
-          )}
-          <View
-            style={{
-              ...styles.flexCol,
-              padding: `${spacing[0]} ${spacing[20]}`,
-            }}
-          >
-            <ResumePDFProfile
-              profile={profile}
-              themeColor={themeColor}
-              isPDF={isPDF}
-            />
-            {showFormsOrder.map((form) => {
-              const Component = formTypeToComponent[form];
-              return <Component key={form} />;
-            })}
-          </View>
-          <View
-              style={{
-                width: spacing["full"],
-                height: spacing[3.5],
-              }}
-            />
-        </Page>
+        
+        {needScroll ? (
+          <div style={{
+            overflow: "hidden",
+            overflowY: "scroll",
+            width: width,
+            height: height,
+          }}>
+            <PageContent/>
+          </div>
+        ) : (<PageContent/>)}
       </Document>
       <SuppressResumePDFErrorMessage />
     </>
   );
 };
+
+

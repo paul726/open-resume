@@ -1,7 +1,6 @@
 "use client";
 import { Provider } from "react-redux";
 import { store } from "lib/redux/store";
-import { ResumeForm } from "components/ResumeForm";
 import { Resume } from "components/Resume";
 import { JobDescriptionForm } from "components/JobDescriptionForm";
 
@@ -14,7 +13,7 @@ export default function Create() {
             <JobDescriptionForm/>
           </div>
           <div className="col-span-3">
-            <Resume />
+            <Resume needScroll={true}/>
           </div>
         </div>
       </main>

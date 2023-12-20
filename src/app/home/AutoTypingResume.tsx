@@ -76,6 +76,7 @@ export const AutoTypingResume = () => {
               custom: "CUSTOM SECTION",
             },
           }}
+          needScroll={false}
         />
       </ResumeIframeCSR>
     </>

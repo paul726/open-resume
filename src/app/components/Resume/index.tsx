@@ -17,14 +17,15 @@ import {
 } from "components/fonts/hooks";
 import { NonEnglishFontsCSSLazyLoader } from "components/fonts/NonEnglishFontsCSSLoader";
 
-export const Resume = () => {
+export const Resume = ({needScroll = false}: {needScroll: boolean}) => {
   const [scale, setScale] = useState(0.8);
   const resume = useAppSelector(selectResume);
   const settings = useAppSelector(selectSettings);
   const document = useMemo(
-    () => <ResumePDF resume={resume} settings={settings} isPDF={true} />,
+    () => <ResumePDF resume={resume} settings={settings} isPDF={true} needScroll={false}/>,
     [resume, settings]
   );
+  
 
   useRegisterReactPDFFont();
   useRegisterReactPDFHyphenationCallback(settings.fontFamily);
@@ -45,6 +46,7 @@ export const Resume = () => {
                 resume={resume}
                 settings={settings}
                 isPDF={DEBUG_RESUME_PDF_FLAG}
+                needScroll={needScroll}
               />
             </ResumeIframeCSR>
           </section>
