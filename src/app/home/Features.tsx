@@ -21,19 +21,19 @@ const FEATURES = [
     title: "Privacy Focus",
     text: "ResumePilot stores data locally in your browser so only you have access to your data and with complete control",
   },
-  {
-    src: featureOpenSourceSrc,
-    title: "Open-Source",
-    text: (
-      <>
-        ResumePilot is an open-source project, and its source code can be viewed
-        by anyone on its{" "}
-        <Link href="https://github.com/xitanggg/open-resume">
-          GitHub repository
-        </Link>
-      </>
-    ),
-  },
+  // {
+  //   src: featureOpenSourceSrc,
+  //   title: "Open-Source",
+  //   text: (
+  //     <>
+  //       ResumePilot is an open-source project, and its source code can be viewed
+  //       by anyone on its{" "}
+  //       <Link href="https://github.com/xitanggg/open-resume">
+  //         GitHub repository
+  //       </Link>
+  //     </>
+  //   ),
+  // },
 ];
 
 export const Features = () => {

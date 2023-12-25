@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { selectResume } from "lib/redux/resumeSlice";
 import { useChatGPT } from "lib/hooks/useChatGPT";
+import { useSession } from "next-auth/react";
 
 
 export const AIBoostButton = () => {

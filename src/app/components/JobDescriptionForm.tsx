@@ -17,6 +17,7 @@ import { deepMerge } from "lib/deep-merge";
 import type { Resume } from "lib/redux/types";
 import { setResume } from "lib/redux/resumeSlice";
 import axios from 'axios';
+import { useSession } from "next-auth/react";
 
 interface ChatResponse {
     data: string;
@@ -26,6 +27,7 @@ export const JobDescriptionForm = () => {
     useSetInitialStore();
     useSaveStateToLocalStorageOnChange();
 
+    const { data: session } = useSession()
     const dispatch = useAppDispatch();
     const resume = useAppSelector(selectResume);
 
@@ -34,9 +36,18 @@ export const JobDescriptionForm = () => {
 
     const aiBoost = async () => {
         // alert("hello,world")
+        if (!session) {
+            alert("please sign in first")
+            return
+        }
+
+        alert("this feature is under development, i will let you know when it is ready")
+
+        return
+
         const jd = jdInputRef.current?.value
         try {
-            const response = await axios.post<ChatResponse>('/api', {'resume': JSON.stringify(resume), 'jd': jd});
+            const response = await axios.post<ChatResponse>('/api', { 'resume': JSON.stringify(resume), 'jd': jd });
             console.log(response.data)
 
             // const aiResume = JSON.parse(response)
@@ -56,7 +67,10 @@ export const JobDescriptionForm = () => {
     return (
         <>
             <div className="mt-6 flex justify-center">
-                <Textarea id="jd" ref = {jdInputRef} placeholder={"please input job description here"} width={600} height={600} px={15} pt={15}></Textarea>
+                <div>
+                <p className="text-gray-600 mb-2">Optional</p>
+                <Textarea id="jd" ref={jdInputRef} placeholder={"Shape Your Success: Input Job Details for a Personalized Resume!"} width={600} height={600} px={15} pt={15}></Textarea>
+                </div>
             </div>
             <Center mt={30}>
                 <PrimaryButton onClick={aiBoost}>

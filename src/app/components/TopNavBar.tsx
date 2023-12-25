@@ -7,6 +7,8 @@ import { cx } from "lib/cx";
 import { AIBoostButton } from "./AIBoostButton";
 import { Provider } from "react-redux";
 import { store } from "lib/redux/store";
+import { LoginComponent } from "components/login/login-btn";
+import { SessionProvider } from "next-auth/react";
 
 
 export const TopNavBar = () => {
@@ -16,6 +18,7 @@ export const TopNavBar = () => {
 
   return (
     <Provider store={store}>
+      <SessionProvider>
       <header
         aria-label="Site Header"
         className={cx(
@@ -37,10 +40,12 @@ export const TopNavBar = () => {
 
             <Link href={"/resume-builder"} className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4" key={"Builder"}>Builder</Link>
 
-            <Link href="../login" className="rounded-md px-4 py-2 bg-blue-600 text-white hover:bg-blue-900 focus-visible:bg-blue-900">Login</Link>
+            {/* <Link href="../login" className="rounded-md px-4 py-2 bg-blue-600 text-white hover:bg-blue-900 focus-visible:bg-blue-900">Sign by Google</Link> */}
+            <LoginComponent/>
           </nav>
         </div>
       </header>
+      </SessionProvider>
     </Provider>
   );
 };

@@ -1,13 +1,16 @@
 "use client";
-import { Provider } from "react-redux";
-import { store } from "lib/redux/store";
+// Install necessary packages: npm install next chakra-ui react-query react-query/devtools
 
-export default function Create() {
-    return (
-        <Provider store={store}>
-            <main className="relative h-full w-full overflow-hidden bg-gray-50">
+// pages/index.js
+import { SessionProvider } from 'next-auth/react';
+import type { AppProps } from 'next/app';
 
-            </main>
-        </Provider>
-    )
+function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  return (
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  );
 }
+
+export default App;
