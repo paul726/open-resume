@@ -12,7 +12,7 @@ export const LoginComponent = () => {
   }
   return (
     <>
-      <button className="rounded-md px-2 py-2 text-blue-600 hover:bg-gray-100 focus-visible:bg-gray-100" onClick={() => signIn()}>Sign in with Google</button>
+      <button className="rounded-md px-2 py-2 text-blue-600 hover:bg-gray-100 focus-visible:bg-gray-100" onClick={() => signIn('google')}>Sign in with Google</button>
     </>
   )
 }
