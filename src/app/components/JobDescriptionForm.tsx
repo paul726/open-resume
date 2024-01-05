@@ -45,7 +45,11 @@ export const JobDescriptionForm = () => {
 
         return
 
-        const jd = jdInputRef.current?.value
+        const jd = jdInputRef.current?.value ?? ""
+        if(jd.length > 2000) {
+            alert("your input is too long")
+        }
+        
         try {
             const response = await axios.post<ChatResponse>('/api', { 'resume': JSON.stringify(resume), 'jd': jd });
             console.log(response.data)

@@ -1,6 +1,7 @@
 import "globals.css";
 import { TopNavBar } from "components/TopNavBar";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "components/Analytics";
+
 
 export const metadata = {
   title: "ResumePilot - Free Resume Builder and Parser",
